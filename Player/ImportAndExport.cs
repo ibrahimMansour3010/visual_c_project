@@ -256,28 +256,35 @@ namespace Player
         //// update export
         private void saveExportBTN_Click(object sender, EventArgs e)
         {
-            decimal res;
-            decimal.TryParse(exportsDGV.SelectedRows[0].Cells[4].Value.ToString(), out res);
-            if ((int)exportQuantity.Value > ((int)currQuantity.Value+res))
+            if (exportsDGV.SelectedRows.Count != 0)
             {
-                MessageBox.Show("This Quantity Is Not Available Right Now", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                if (stockListExported.SelectedIndex == -1 || itemListExported.SelectedIndex == -1 || exportsDGV.SelectedRows.Count == 0)
+                decimal res;
+                decimal.TryParse(exportsDGV.SelectedRows[0].Cells[4].Value.ToString(), out res);
+                if ((int)exportQuantity.Value > ((int)currQuantity.Value + res))
                 {
-                    MessageBox.Show("There Is Not Stock, Item Or No Selected Row", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("This Quantity Is Not Available Right Now", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    int iteminstockid = (int)exportsDGV.SelectedRows[0].Cells[0].Value;
-                    int qunatity = (int)exportQuantity.Value;
-                    DateTime date = exportDate.Value;
-                    ItemInStockServices.EditItemInStock(iteminstockid, qunatity, date);
-                    exportsDGV.DataSource = ItemInStockServices.GetAllItemInStock((int?)stockListExported.SelectedValue, tabPage2.Text);
-                    fillExport();
-                    FillReport((int?)stockListReport.SelectedValue);
+                    if (stockListExported.SelectedIndex == -1 || itemListExported.SelectedIndex == -1 || exportsDGV.SelectedRows.Count == 0)
+                    {
+                        MessageBox.Show("There Is Not Stock, Item Or No Selected Row", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        int iteminstockid = (int)exportsDGV.SelectedRows[0].Cells[0].Value;
+                        int qunatity = (int)exportQuantity.Value;
+                        DateTime date = exportDate.Value;
+                        ItemInStockServices.EditItemInStock(iteminstockid, qunatity, date);
+                        exportsDGV.DataSource = ItemInStockServices.GetAllItemInStock((int?)stockListExported.SelectedValue, tabPage2.Text);
+                        fillExport();
+                        FillReport((int?)stockListReport.SelectedValue);
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Theere Is No Selected Export", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //// delete export item
