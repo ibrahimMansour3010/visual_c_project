@@ -261,7 +261,7 @@ namespace Player
         // delete item
         private void deleteItemBTN_Click(object sender, EventArgs e)
         {
-            if (itemNameTXT.Text == "" || catList.SelectedIndex == -1 || itemsDGV.SelectedRows.Count == 0)
+            if (itemsDGV.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please Enter Select Item ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
