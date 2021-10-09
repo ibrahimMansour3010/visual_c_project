@@ -21,3 +21,26 @@ C:\Users\Ibrahim Mansour\source\repos\DBLayer\BLLayer\obj\Debug\BLLayer.csproj.C
 C:\Users\Ibrahim Mansour\source\repos\DBLayer\BLLayer\obj\Debug\BLLayer.csproj.CopyComplete
 C:\Users\Ibrahim Mansour\source\repos\DBLayer\BLLayer\obj\Debug\BLLayer.dll
 C:\Users\Ibrahim Mansour\source\repos\DBLayer\BLLayer\obj\Debug\BLLayer.pdb
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\BLLayer.dll.config
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\BLLayer.dll
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\BLLayer.pdb
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\DBLayer.dll
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\EntityFramework.dll
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\linq2db.dll
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\DBLayer.pdb
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\DBLayer.dll.config
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\EntityFramework.xml
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\linq2db.xml
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\obj\Debug\BLLayer.csproj.AssemblyReference.cache
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\obj\Debug\BLLayer.csproj.CoreCompileInputs.cache
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\obj\Debug\BLLayer.csproj.CopyComplete
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\obj\Debug\BLLayer.dll
+C:\Users\a-mamdouh\Source\Repos\visual_c_project\BLLayer\obj\Debug\BLLayer.pdb
