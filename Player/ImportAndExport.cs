@@ -98,7 +98,7 @@ namespace Player
             {
                 MessageBox.Show("There Is Not Stock Or Item", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
+            else if ((int)importQuantity.Value >0)
             {
                 ItemInStockServices.AddItemInStock(
               new ItemInStock()
