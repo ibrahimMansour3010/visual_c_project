@@ -20,16 +20,19 @@ namespace BLLayer
         }
         public void AddCategory(Category category)
         {
+            this.Context = new Context();
             this.Context.Categories.Add(category);
             this.Context.SaveChanges();
         }
         public void EditCategory(int cat_id, string name)
         {
+            this.Context = new Context();
             this.Context.Categories.Where(c => c.ID == cat_id).First().Name = name;
             this.Context.SaveChanges();
         }
         public void DeleteCategory(int cat_id)
         {
+            this.Context = new Context();
             Category category  = this.Context.Categories.Where(c => c.ID == cat_id).First();
             this.Context.Categories.Remove(category);
             this.Context.SaveChanges();

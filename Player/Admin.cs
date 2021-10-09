@@ -1,6 +1,7 @@
 ﻿using BLLayer;
 using DBLayer;
 using System;
+using System.Data.Entity.Infrastructure;
 using System.Windows.Forms;
 
 namespace Player
@@ -38,30 +39,51 @@ namespace Player
         // add stock
         private void addStockBTN_Click(object sender, EventArgs e)
         {
-            if (stockNameTXT.Text == "")
+            try
             {
-                MessageBox.Show("Please Enter Stock Name","Warning",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                if (stockNameTXT.Text == "")
+                {
+                    MessageBox.Show("Please Enter Stock Name", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    this.StockServices.AddStock(new Stock() { Name = stockNameTXT.Text });
+                    stockDGV.DataSource = StockServices.GetStocks();
+                    stockNameTXT.Text = "";
+                }
             }
-            else { 
-                this.StockServices.AddStock(new Stock() { Name = stockNameTXT.Text });
-                stockDGV.DataSource = StockServices.GetStocks();
-                stockNameTXT.Text = "";
+            catch (DbUpdateException ex)
+            {
+                MessageBox.Show("Duplicated Stock Name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                stockNameTXT.Text="";
             }
+
         }
         // save stock
         private void saveStockBTN_Click(object sender, EventArgs e)
         {
-            if (stockNameTXT.Text == "")
+            try
             {
-                MessageBox.Show("Please Enter Stock Name", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (stockNameTXT.Text == "")
+                {
+                    MessageBox.Show("Please Enter Stock Name", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    StockServices.EditStock(
+                    (int)stockDGV.SelectedRows[0].Cells[0].Value, stockNameTXT.Text);
+                    stockDGV.DataSource = StockServices.GetStocks();
+                }
             }
-            else
+            catch (DbUpdateException)
             {
-                StockServices.EditStock(
-                (int)stockDGV.SelectedRows[0].Cells[0].Value, stockNameTXT.Text);
-                stockDGV.DataSource = StockServices.GetStocks();
+                MessageBox.Show("Duplicated Stock Name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
                 stockNameTXT.Text = "";
             }
+
         }
         // delete stock
         private void deleteStockBTN_Click(object sender, EventArgs e)
@@ -89,43 +111,63 @@ namespace Player
         // add category
         private void addCatBTN_Click(object sender, EventArgs e)
         {
-            if (catNameTXT.Text == "")
-            {
-                MessageBox.Show("Please Enter Category Name", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                CategoryServices.AddCategory(new Category()
+            try { 
+                if (catNameTXT.Text == "")
                 {
-                    Name = catNameTXT.Text
-                });
-                catDGV.DataSource = CategoryServices.GetAllCategories();
-                catList.DisplayMember = "Name";
-                catList.ValueMember = "ID";
-                catList.DataSource = CategoryServices.GetAllCategories();
-                itemsDGV.DataSource = ItemServices.GetAllItemsByCatID((int?)catList.SelectedValue);
+                    MessageBox.Show("Please Enter Category Name", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    CategoryServices.AddCategory(new Category()
+                    {
+                        Name = catNameTXT.Text
+                    });
+                    catDGV.DataSource = CategoryServices.GetAllCategories();
+                    catList.DisplayMember = "Name";
+                    catList.ValueMember = "ID";
+                    catList.DataSource = CategoryServices.GetAllCategories();
+                    itemsDGV.DataSource = ItemServices.GetAllItemsByCatID((int?)catList.SelectedValue);
+                }
+            }catch (DbUpdateException ex)
+            {
+                MessageBox.Show("Duplicated Category Name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
                 catNameTXT.Text = "";
             }
         }
         // edit category
         private void saveCatBTN_Click(object sender, EventArgs e)
         {
-            if (catNameTXT.Text == "")
+            try
             {
-                MessageBox.Show("Please Enter Category Name", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (catNameTXT.Text == "")
+                {
+                    MessageBox.Show("Please Enter Category Name", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    int cat_id = (int)catDGV.SelectedRows[0].Cells[0].Value;
+                    string catName = catNameTXT.Text;
+                    CategoryServices.EditCategory(cat_id, catName);
+                    catDGV.DataSource = CategoryServices.GetAllCategories();
+                    catList.DisplayMember = "Name";
+                    catList.ValueMember = "ID";
+                    catList.DataSource = CategoryServices.GetAllCategories();
+                    itemsDGV.DataSource = ItemServices.GetAllItemsByCatID((int?)catList.SelectedValue);
+                }
             }
-            else
+            catch (DbUpdateException ex)
             {
-                int cat_id = (int)catDGV.SelectedRows[0].Cells[0].Value;
-                string catName = catNameTXT.Text;
-                CategoryServices.EditCategory(cat_id, catName);
-                catDGV.DataSource = CategoryServices.GetAllCategories();
-                catList.DisplayMember = "Name";
-                catList.ValueMember = "ID";
-                catList.DataSource = CategoryServices.GetAllCategories();
-                itemsDGV.DataSource = ItemServices.GetAllItemsByCatID((int?)catList.SelectedValue);
+                MessageBox.Show("Duplicated Category Name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
                 catNameTXT.Text = "";
             }
+
+
         }
         // delete category
         private void deleteCatBTN_Click(object sender, EventArgs e)
@@ -157,40 +199,64 @@ namespace Player
         // add item
         private void addItenBTN_Click(object sender, EventArgs e)
         {
-            if (itemNameTXT.Text == "" || catList.SelectedIndex == -1)
+            try
             {
-                MessageBox.Show("Please Enter Item Name and Select Category", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                string item_name = itemNameTXT.Text;
-                int cat_id = (int)catList.SelectedValue;
-                ItemServices.AddItem(new Item()
+                if (itemNameTXT.Text == "" || catList.SelectedIndex == -1)
                 {
-                    Name = item_name,
-                    Cat_ID = cat_id
-                });
-                itemsDGV.DataSource = ItemServices.GetAllItemsByCatID((int?)catList.SelectedValue);
+                    MessageBox.Show("Please Enter Item Name and Select Category", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    string item_name = itemNameTXT.Text;
+                    int cat_id = (int)catList.SelectedValue;
+                    ItemServices.AddItem(new Item()
+                    {
+                        Name = item_name,
+                        Cat_ID = cat_id
+                    });
+                    itemsDGV.DataSource = ItemServices.GetAllItemsByCatID((int?)catList.SelectedValue);
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                MessageBox.Show("Duplicated Item Name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
                 itemNameTXT.Text = "";
             }
+
+
         }
         // save item
         private void saveItemBTN_Click(object sender, EventArgs e)
         {
-            if (itemNameTXT.Text == "" || catList.SelectedIndex == -1)
+            try
             {
-                MessageBox.Show("Please Enter Item Name and Select Category", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (itemNameTXT.Text == "" || catList.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Please Enter Item Name and Select Category", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    int cat_id = (int)catList.SelectedValue;
+                    int item_id = (int)itemsDGV.SelectedRows[0].Cells[0].Value;
+                    string itemName = itemNameTXT.Text;
+                    ItemServices.EditItem(item_id, cat_id);
+                    ItemServices.EditItem(item_id, itemName);
+                    itemsDGV.DataSource = ItemServices.GetAllItemsByCatID((int?)catList.SelectedValue);
+                }
             }
-            else
+            catch (DbUpdateException ex)
             {
-                int cat_id = (int)catList.SelectedValue;
-                int item_id = (int)itemsDGV.SelectedRows[0].Cells[0].Value;
-                string itemName = itemNameTXT.Text;
-                ItemServices.EditItem(item_id, cat_id);
-                ItemServices.EditItem(item_id, itemName);
-                itemsDGV.DataSource = ItemServices.GetAllItemsByCatID((int?)catList.SelectedValue);
+                MessageBox.Show("Duplicated Item Name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                stockNameTXT.Text = "";
+            }
+            finally
+            {
                 itemNameTXT.Text = "";
             }
+
         }
         // delete item
         private void deleteItemBTN_Click(object sender, EventArgs e)

@@ -16,17 +16,20 @@ namespace BLLayer
         }
         public void AddItemInStock(ItemInStock itemInStock)
         {
+            this.Context = new Context();
             this.Context.ItemInStocks.Add(itemInStock);
             this.Context.SaveChanges();
         }
         public void EditItemInStock(int iteminstock_id, int quantity, DateTime date)
         {
+            this.Context = new Context();
             this.Context.ItemInStocks.Where(it => it.ID == iteminstock_id).First().Quantity = quantity;
             this.Context.ItemInStocks.Where(it => it.ID == iteminstock_id).First().Date = date;
             this.Context.SaveChanges();
         }
         public void DeleteItemInStock(int iteminstock_id)
         {
+            this.Context = new Context();
             ItemInStock itemInStock = this.Context.ItemInStocks.Where(it => it.ID == iteminstock_id).First();
             this.Context.ItemInStocks.Remove(itemInStock);
             this.Context.SaveChanges();

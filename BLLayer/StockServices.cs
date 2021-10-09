@@ -16,16 +16,19 @@ namespace BLLayer
         }
         public void AddStock(Stock stock)
         {
+            this.Context = new Context();
             this.Context.Stocks.Add(stock);
             this.Context.SaveChanges();
         }
         public void EditStock(int stock_id,string name)
         {
+            this.Context = new Context();
             this.Context.Stocks.Where(s=>s.ID == stock_id).First().Name = name;
             this.Context.SaveChanges();
         }
         public void DeleteStock(int stock_id)
         {
+            this.Context = new Context();
             Stock stock = this.Context.Stocks.Where(s=>s.ID == stock_id).First();
             this.Context.Stocks.Remove(stock);
             this.Context.SaveChanges();

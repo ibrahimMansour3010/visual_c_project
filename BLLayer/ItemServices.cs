@@ -15,21 +15,25 @@ namespace BLLayer
         }
         public void AddItem(Item item)
         {
+            this.Context = new Context();
             this.Context.Items.Add(item);
             this.Context.SaveChanges();
         }
         public void EditItem(int item_id, string name)
         {
+            this.Context = new Context();
             this.Context.Items.Where(i => i.ID == item_id).First().Name = name;
             this.Context.SaveChanges();
         }
         public void EditItem(int item_id, int cat_id)
         {
+            this.Context = new Context();
             this.Context.Items.Where(i => i.ID == item_id).First().Cat_ID = cat_id;
             this.Context.SaveChanges();
         }
         public void DeleteItem(int item_id)
         {
+            this.Context = new Context();
             Item item = this.Context.Items.Where(i => i.ID == item_id).First();
             this.Context.Items.Remove(item);
             this.Context.SaveChanges();
