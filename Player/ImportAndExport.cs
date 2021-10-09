@@ -119,7 +119,8 @@ namespace Player
         //// update import
         private void saveImportBTN_Click(object sender, EventArgs e)
         {
-            if (stockList.SelectedIndex == -1 || itemList.SelectedIndex == -1 || importsDGV.SelectedRows.Count == 0)
+            if (stockList.SelectedIndex == -1 || itemList.SelectedIndex == -1 || importsDGV.SelectedRows.Count == 0 ||
+                ItemServices.GetQuantity((int?)importsDGV.SelectedRows[0].Cells[1].Value, (int?)stockList.SelectedValue) <= 0)
             {
                 MessageBox.Show("There Is Not Stock, Item Or No Selected Row", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
