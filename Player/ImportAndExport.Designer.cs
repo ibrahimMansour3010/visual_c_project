@@ -128,6 +128,7 @@ namespace Player
             this.importTab.TabIndex = 0;
             this.importTab.Text = "Import";
             this.importTab.UseVisualStyleBackColor = true;
+            this.importTab.Click += new System.EventHandler(this.importTab_Click);
             // 
             // importsDGV
             // 

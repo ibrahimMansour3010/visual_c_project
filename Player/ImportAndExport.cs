@@ -119,19 +119,25 @@ namespace Player
         //// update import
         private void saveImportBTN_Click(object sender, EventArgs e)
         {
-            if (stockList.SelectedIndex == -1 || itemList.SelectedIndex == -1 || importsDGV.SelectedRows.Count == 0 ||
-                (ItemServices.GetQuantity((int?)importsDGV.SelectedRows[0].Cells[1].Value, (int?)stockList.SelectedValue) -
-                    (int)importsDGV.SelectedRows[0].Cells[4].Value) <= 0)
+            if (stockList.SelectedIndex == -1 || itemList.SelectedIndex == -1 || importsDGV.SelectedRows.Count == 0 )
             {
                 MessageBox.Show("There Is Not Stock, Item Or No Selected Row", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
+                if (((int)importsDGV.SelectedRows[0].Cells[4].Value - 
+                    (ItemServices.GetQuantity((int?)importsDGV.SelectedRows[0].Cells[1].Value, (int?)stockList.SelectedValue))) <= (int) importQuantity.Value){
+
                 int itemInStockID = (int)importsDGV.SelectedRows[0].Cells[0].Value;
                 ItemInStockServices.EditItemInStock(itemInStockID, (int)importQuantity.Value, importDate.Value);
                 importsDGV.DataSource = ItemInStockServices.GetAllItemInStock((int?)stockList.SelectedValue, importTab.Text);
                 fillExport();
                 FillReport((int?)stockListReport.SelectedValue);
+                }
+                else
+                {
+                    MessageBox.Show("Cannot Update Import Quntity That has been Exported", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
         // delete import
@@ -144,7 +150,7 @@ namespace Player
             else
             {
                 if ((ItemServices.GetQuantity((int?)importsDGV.SelectedRows[0].Cells[1].Value, (int?)stockList.SelectedValue) - 
-                    (int)importsDGV.SelectedRows[0].Cells[4].Value)> 0)
+                    (int)importsDGV.SelectedRows[0].Cells[4].Value)>= 0)
                 {
                     int itemInStockID = (int)importsDGV.SelectedRows[0].Cells[0].Value;
                     ItemInStockServices.DeleteItemInStock(itemInStockID);
@@ -329,6 +335,9 @@ namespace Player
             exportDate.Value = DateTime.Now;
         }
 
+        private void importTab_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
