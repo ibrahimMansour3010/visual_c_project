@@ -204,7 +204,7 @@ namespace Player
                 int item_id = (int)itemsDGV.SelectedRows[0].Cells[0].Value;
                 ItemServices.DeleteItem(item_id);
                 itemsDGV.DataSource = ItemServices.GetAllItemsByCatID((int?)catList.SelectedValue);
-                itemNameTXT.Text = "" ;
+                itemNameTXT.Text = "";
             }
         }
         // when change category list item
